@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reality VPN — Свободный интернет</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green: #00b871;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        nav .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-text { 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            color: var(--text-main);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo-text span { color: var(--brand-green); }
+
+        nav .links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 60px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        #home {
+            background: radial-gradient(circle at 100% 0%, #e2f3ec 0%, #f8fafc 50%);
+            text-align: center;
+        }
+
+        h1 { 
+            font-size: clamp(2rem, 8vw, 3.5rem); 
+            margin: 15px 0; 
+            line-height: 1.2; 
+            font-weight: 800;
+        }
+
+        .green-text { color: var(--brand-green); }
+
+        p { 
+            color: var(--text-muted); 
+            line-height: 1.6; 
+            font-size: clamp(1rem, 4vw, 1.15rem);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: var(--brand-green);
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            width: auto;
+            min-width: 200px;
+            transition: 0.3s;
+            box-shadow: 0 8px 15px rgba(0, 184, 113, 0.25);
+        }
+
+        /* Стрелочка */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--brand-green);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-8px);}
+        }
+
+        /* Сетка карточек */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        /* Карточка тарифа */
+        .free-card {
+            background: var(--white);
+            border: 2px solid var(--brand-green);
+            border-radius: 28px;
+            padding: 40px 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+
+        .price-tag { font-size: 3.5rem; font-weight: 900; margin: 10px 0; }
+
+        .check-list {
+            text-align: left;
+            display: inline-block;
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .check-list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* АДАПТАЦИЯ ПОД ТЕЛЕФОН */
+        @media (max-width: 600px) {
+            nav .links {
+                display: flex;
+                gap: 10px;
+            }
+            nav .links a {
+                margin-left: 10px;
+                font-size: 11px;
+            }
+            section {
+                padding: 80px 15px 40px;
+            }
+            .free-card {
+                padding: 30px 20px;
+            }
+            .scroll-indicator {
+                display: none; /* На маленьких экранах часто мешает вводу */
+            }
+            .btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo-text">REALITY <span>VPN</span></a>
+            <div class="links">
+                <a href="#features">ИНФО</a>
+                <a href="#pricing">ТАРИФ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div data-aos="fade-up">
+            <img src="logo.png" alt="Logo" style="width: 300px; height: auto; margin-bottom: 15px;">
+            <h1>Твой интернет — <br><span class="green-text">твои правила</span></h1>
+            <p>Бесплатный VPN нового поколения. Скорость без компромиссов и полная анонимность в один клик.</p>
+            <a href="https://t.me/RealityVPN_official" class="btn">ПОДКЛЮЧИТЬСЯ</a>
+        </div>
+        <a href="#features" class="scroll-indicator">
+            ЛИСТАЙ ВНИЗ<br>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5"/></svg>
+        </a>
+    </section>
+
+    <section id="features">
+        <h2 style="text-align: center; margin-bottom: 40px;" data-aos="fade-up">Почему <span class="green-text">мы?</span></h2>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+                <h3>Max Speed</h3>
+                <p>Забудь про буферизацию. Сервера 10 Гбит/с справятся с любой нагрузкой.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔐</div>
+                <h3>No Logs</h3>
+                <p>Мы не храним историю твоих посещений. Твоя приватность — наш приоритет.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🌍</div>
+                <h3>Any Device</h3>
+                <p>Работает на iPhone, Android и ПК через любое удобное приложение.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="free-card" data-aos="zoom-in">
+            <h3 style="letter-spacing: 2px; color: var(--brand-green);">FREE EDITION</h3>
+            <div class="price-tag">0₽</div>
+            <ul class="check-list">
+                <li>✅ Доступ ко всем серверам</li>
+                <li>✅ Reality Protocol v2</li>
+                <li>✅ Без лимита по трафику</li>
+                <li>✅ Поддержка 24/7 в чате</li>
+            </ul>
+            <a href="https://t.me/RealityVPN_official" class="btn">В ТЕЛЕГРАМ</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Reality VPN. Создано для свободных людей.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>
